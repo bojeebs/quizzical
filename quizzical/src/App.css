@@ -1,0 +1,45 @@
+.app {
+  max-width: 550px;
+  max-height: 550px;
+}
+
+
+
+
+
+
+.title {
+  font-family: 'Karla';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 31.25px;
+  line-height: 37px;
+  text-align: center;
+  position: absolute;
+  width: 412px;
+  height: 41px;
+  
+  top: 218px;
+}
+
+.start {
+  width: 193px;
+  height: 52px;
+  left: 105px;
+  top: 314px;
+  border-style: none;
+  background: #4D5B9E;
+  border-radius: 15px;
+  position: absolute;
+}
+
+
+.choices-list {
+  display: flex;
+  list-style-type: none;
+  padding: 0
+}
+
+.choices-list li {
+  margin-right: 10px;
+}
