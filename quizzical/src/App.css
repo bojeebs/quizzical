@@ -43,3 +43,12 @@
 .choices-list li {
   margin-right: 10px;
 }
+
+.selected {
+  background-color: #D6DBF5;
+}
+
+.check-btn {
+  padding: 10px;
+  
+}
