@@ -55,15 +55,20 @@ return (
             {question.shuffledChoices.map((choice, index) => (
               <li key={index}>
                 <button
-                  className={`choice-button ${selectedChoice && selectedChoice[questionIndex] === choice ? 'selected' : ''}`}   
-                  onClick={() => {
-                    const newSelectedChoice = Array.isArray(selectedChoice) ? [...selectedChoice] : [];
-                    newSelectedChoice[questionIndex] = choice;
-                    setSelectedChoice(newSelectedChoice);
-                  }}
-                >            
-                  {he.decode(choice)}
+                    style={selectedChoice && selectedChoice[questionIndex] === choice ? {backgroundColor: '#D6DBF5'} : {}}
+                    onClick={() => {
+                      console.log('questionIndex:', questionIndex);  // Add this line
+                      console.log('choice:', choice);  // Add this line
+                      const newSelectedChoice = Array.isArray(selectedChoice) ? [...selectedChoice] : [];
+                      newSelectedChoice[questionIndex] = choice;
+                      setSelectedChoice(newSelectedChoice);
+
+                      console.log(newSelectedChoice)
+                    }}
+                  >
+                    {he.decode(choice)}
                 </button>
+
               </li>
             ))}
           </ul>
