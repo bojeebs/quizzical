@@ -64,7 +64,7 @@ function Main() {
         element={
           <Questions
             questions={questions}
-            selectedChoices={selectedChoice}
+            selectedChoice={selectedChoice}
             setSelectedChoice={setSelectedChoice}
           />
         }
@@ -73,7 +73,8 @@ function Main() {
         path="/checkanswers"
         element={
           <CheckAnswers
-            selectedChoices={selectedChoice}
+            questions={questions}
+            selectedChoice={selectedChoice}
             correctAnswers={correctAnswers}
           />
         }

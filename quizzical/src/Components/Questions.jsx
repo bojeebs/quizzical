@@ -1,69 +1,36 @@
 import he from 'he';
+import { useNavigate } from 'react-router-dom';
 
 
 
 const Questions = ({questions, selectedChoice, setSelectedChoice }) => {
-
+const navigate = useNavigate()
 
   
-// const [questions, setQuestions] = useState([])
-// const [selectedChoice, setSelectedChoice] = useState([]);
-// const [correctAnswers, setCorrectAnswers] = useState([])
-
-
-// useEffect(() => {
-//   const getQuestions = async () => {
-//     try {
-//       const response = await axios.get('https://opentdb.com/api.php?amount=5');
-//       const shuffledQuestions = response.data.results.map(question => {
-//         const choices = shuffleArray([...question.incorrect_answers, question.correct_answer]);
-//         return { ...question, shuffledChoices: choices };
-//       });
-//       setQuestions(shuffledQuestions);
-//       setSelectedChoice(new Array(shuffledQuestions.length).fill(null))
-//       setCorrectAnswers(shuffledQuestions.map(question => question.correct_answer))
-//     } catch (error) {
-//       console.log(error);
-//     }
-//   };
-//   getQuestions();
-// }, []);
-
-
-
-// const shuffleArray = (array) => {
-//   for (let i = array.length - 1; i > 0; i--) {
-//     const j = Math.floor(Math.random() * (i + 1));
-//     [array[i], array[j]] = [array[j], array[i]];
-//   }
-//   return array;
-// };
-
-
-// console.log(questions);
-
-
-
 
 return (
   <div>
     {questions.map((question, questionIndex) => {
+       console.log(questions)
       return (
         <div className="firstquestion" key={question.question}>
           <h2>{he.decode(question.question)}</h2>
           <ul className="choices-list">
             {question.shuffledChoices.map((choice, index) => (
+              
               <li key={index}>
                 <button
                     style={selectedChoice && selectedChoice[questionIndex] === choice ? {backgroundColor: '#D6DBF5'} : {}}
                     onClick={() => {
-                      console.log('questionIndex:', questionIndex);  // Add this line
-                      console.log('choice:', choice);  // Add this line
+                      // console.log('questionIndex:', questionIndex);
+                      // console.log('choice:', choice);  
+                      // console.log('current selectedChoice', selectedChoice)
                       const newSelectedChoice = Array.isArray(selectedChoice) ? [...selectedChoice] : [];
+                      console.log('newSelectedChoice after copying:', newSelectedChoice);
                       newSelectedChoice[questionIndex] = choice;
                       setSelectedChoice(newSelectedChoice);
 
-                      console.log(newSelectedChoice)
+                      // console.log("newselectedchoice", newSelectedChoice)
                     }}
                   >
                     {he.decode(choice)}
@@ -71,11 +38,13 @@ return (
 
               </li>
             ))}
+            
           </ul>
         </div>
+        
       );
     })}
-    <button className="checkbtn">Check Answers</button>
+    <button className="checkbtn" onClick={() => navigate('/checkanswers')}>Check Answers</button>
   </div>
 );
 };
