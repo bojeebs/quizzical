@@ -1,7 +1,7 @@
-import { Routes, Route, Link } from "react-router-dom";
+import { useState, useEffect, useCallback } from "react";
+import { Routes, Route, Link, useNavigate } from "react-router-dom";
 import Questions from "./Components/Questions";
 import CheckAnswers from "./Components/CheckAnswers";
-import { useState, useEffect } from "react";
 import axios from "axios";
 import "./App.css";
 
@@ -23,6 +23,26 @@ function Main() {
   const [selectedChoice, setSelectedChoice] = useState([]);
   const [correctAnswers, setCorrectAnswers] = useState([]);
 
+  const fetchNewQuestions = useCallback(async () => {
+    try {
+      const response = await axios.get("https://opentdb.com/api.php?amount=5");
+      const shuffledQuestions = response.data.results.map((question) => {
+        const choices = shuffleArray([
+          ...question.incorrect_answers,
+          question.correct_answer,
+        ]);
+        return { ...question, shuffledChoices: choices };
+      });
+      setQuestions(shuffledQuestions);
+      setSelectedChoice(new Array(shuffledQuestions.length).fill(null));
+      setCorrectAnswers(
+        shuffledQuestions.map((question) => question.correct_answer)
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  }, []);
+
   const shuffleArray = (array) => {
     for (let i = array.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
@@ -31,30 +51,16 @@ function Main() {
     return array;
   };
 
-  useEffect(() => {
-    const getQuestions = async () => {
-      try {
-        const response = await axios.get(
-          "https://opentdb.com/api.php?amount=5"
-        );
-        const shuffledQuestions = response.data.results.map((question) => {
-          const choices = shuffleArray([
-            ...question.incorrect_answers,
-            question.correct_answer,
-          ]);
-          return { ...question, shuffledChoices: choices };
-        });
-        setQuestions(shuffledQuestions);
-        setSelectedChoice(new Array(shuffledQuestions.length).fill(null));
-        setCorrectAnswers(
-          shuffledQuestions.map((question) => question.correct_answer)
-        );
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    getQuestions();
-  }, []);
+  // useEffect(() => {
+  //   fetchNewQuestions();
+  // }, [fetchNewQuestions]);
+
+  const navigate = useNavigate();
+
+  const restartQuiz = () => {
+    fetchNewQuestions();
+    navigate("/");
+  };
 
   return (
     <Routes>
@@ -66,6 +72,7 @@ function Main() {
             questions={questions}
             selectedChoice={selectedChoice}
             setSelectedChoice={setSelectedChoice}
+            fetchNewQuestions={fetchNewQuestions}
           />
         }
       />
@@ -76,6 +83,7 @@ function Main() {
             questions={questions}
             selectedChoice={selectedChoice}
             correctAnswers={correctAnswers}
+            restartQuiz={restartQuiz}
           />
         }
       />
