@@ -1,5 +1,11 @@
 import { useState, useEffect, useCallback } from "react";
-import { Routes, Route, Link, useNavigate } from "react-router-dom";
+import {
+  HashRouter as Router,
+  Routes,
+  Route,
+  Link,
+  useNavigate,
+} from "react-router-dom";
 import Questions from "./Components/Questions";
 import CheckAnswers from "./Components/CheckAnswers";
 import axios from "axios";
@@ -69,31 +75,33 @@ function Main() {
   };
 
   return (
-    <Routes>
-      <Route path="/" element={<App />} />
-      <Route
-        path="/questions"
-        element={
-          <Questions
-            questions={questions}
-            selectedChoice={selectedChoice}
-            setSelectedChoice={setSelectedChoice}
-            fetchNewQuestions={fetchNewQuestions}
-          />
-        }
-      />
-      <Route
-        path="/checkanswers"
-        element={
-          <CheckAnswers
-            questions={questions}
-            selectedChoice={selectedChoice}
-            correctAnswers={correctAnswers}
-            restartQuiz={restartQuiz}
-          />
-        }
-      />
-    </Routes>
+    <Router>
+      <Routes>
+        <Route path="/" element={<App />} />
+        <Route
+          path="/questions"
+          element={
+            <Questions
+              questions={questions}
+              selectedChoice={selectedChoice}
+              setSelectedChoice={setSelectedChoice}
+              fetchNewQuestions={fetchNewQuestions}
+            />
+          }
+        />
+        <Route
+          path="/checkanswers"
+          element={
+            <CheckAnswers
+              questions={questions}
+              selectedChoice={selectedChoice}
+              correctAnswers={correctAnswers}
+              restartQuiz={restartQuiz}
+            />
+          }
+        />
+      </Routes>
+    </Router>
   );
 }
 
