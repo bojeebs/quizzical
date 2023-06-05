@@ -24,8 +24,11 @@ function Main() {
   const [correctAnswers, setCorrectAnswers] = useState([]);
 
   const fetchNewQuestions = useCallback(async () => {
+    console.log("fetchNewQuestions start");
     try {
+      console.log("this function");
       const response = await axios.get("https://opentdb.com/api.php?amount=5");
+      console.log("fetchNewQuestions after API call");
       const shuffledQuestions = response.data.results.map((question) => {
         const choices = shuffleArray([
           ...question.incorrect_answers,
@@ -33,13 +36,16 @@ function Main() {
         ]);
         return { ...question, shuffledChoices: choices };
       });
+      console.log("fetchNewQuestions after processing questions");
       setQuestions(shuffledQuestions);
       setSelectedChoice(new Array(shuffledQuestions.length).fill(null));
       setCorrectAnswers(
         shuffledQuestions.map((question) => question.correct_answer)
       );
+      console.log("fetchNewQuestions after updating state");
     } catch (error) {
       console.log(error);
+      console.log("fetchNewQuestions error", error);
     }
   }, []);
 
@@ -51,9 +57,9 @@ function Main() {
     return array;
   };
 
-  // useEffect(() => {
-  //   fetchNewQuestions();
-  // }, [fetchNewQuestions]);
+  useEffect(() => {
+    fetchNewQuestions();
+  }, [fetchNewQuestions]);
 
   const navigate = useNavigate();
 

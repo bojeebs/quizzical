@@ -26,7 +26,7 @@ const CheckAnswers = ({questions, selectedChoice, correctAnswers, restartQuiz}) 
                 return (
                   <li key={index}>
                     <button
-                      style={isCorrect ? {backgroundColor: 'green'} : isWrongChoice ? {backgroundColor: 'red'} : {}}
+                      style={isCorrect ? {backgroundColor: '#94D7A2'} : isWrongChoice ? {backgroundColor: '#F8BCBC'} : {}}
                       className={isUserChoice ? 'user-choice' : ''}
                     >
                       {he.decode(choice)}
@@ -40,6 +40,7 @@ const CheckAnswers = ({questions, selectedChoice, correctAnswers, restartQuiz}) 
       })}
       <div>Total Correct Answers: {totalCorrect}</div>
       <button onClick={restartQuiz}>Restart Quiz</button>
+      <div className='empty-space'></div>
     </div>
   );
 };

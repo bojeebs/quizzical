@@ -1,15 +1,11 @@
 import he from 'he';
 import { useNavigate } from 'react-router-dom';
-import { useEffect } from 'react';
 
 
 
 const Questions = ({questions, selectedChoice, setSelectedChoice, fetchNewQuestions }) => {
 const navigate = useNavigate()
 
-useEffect(() => {
-  fetchNewQuestions();
-}, [fetchNewQuestions]);  
 
 return (
   <div>
@@ -48,7 +44,10 @@ return (
       );
     })}
     <button className="checkbtn" onClick={() => navigate('/checkanswers')}>Check Answers</button>
+    <div className='empty-space'></div>
   </div>
+  
+  
 );
 };
 
