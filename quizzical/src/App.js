@@ -9,11 +9,13 @@ function App() {
   return (
     <div className="App">
       <h1 className="title">Quizzical</h1>
-      <Link to="/questions">
-        <button className="start" style={{ color: "white" }}>
-          Start Quiz
-        </button>
-      </Link>
+      <div className="button-container">
+        <Link to="/questions">
+          <button className="start" style={{ color: "white" }}>
+            Start Quiz
+          </button>
+        </Link>
+      </div>
     </div>
   );
 }
